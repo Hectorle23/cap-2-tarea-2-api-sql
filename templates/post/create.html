@@ -4,7 +4,7 @@
 
 {% block content %}
 <h1>Crear un nuevo Post</h1>
-<form method="post">
+<form action="{{ url_for('create_one_post') }}" method="post">
     <div class="form-group">
         <label for="title">Title</label>
         <input type="text" id="title" name="title"
@@ -17,7 +17,7 @@
                   placeholder="Post content" class="form-control">{{ request.form.get('content', '') }}</textarea>
     </div>
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Crear</button>
     </div>
 </form>
 {% endblock %}
