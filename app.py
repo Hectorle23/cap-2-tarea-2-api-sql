@@ -1,8 +1,9 @@
 import sqlite3
-from flask import Flask, render_template, request, url_for, redirect, abort
+from flask import Flask, render_template, request, url_for, redirect, abort, flash
 from db import get_db_connection
 
 app = Flask(__name__)
+app.secret_key = 'supersecretkey'
 
 @app.route('/', methods=['GET'])
 def index():
@@ -35,6 +36,12 @@ def create_one_post():
 
         title = request.form['title']
         content = request.form['content']
+
+        if not title:
+            
+            flash('El título es obligatorio.', 'danger')
+            return redirect(url_for('create_one_post'))
+
         conn = get_db_connection()
         conn.execute('INSERT INTO posts (title, content) VALUES (?, ?)', (title, content))
         conn.commit()
